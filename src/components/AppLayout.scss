@@ -1,0 +1,41 @@
+.app-layout {
+    .app-layout-sider {
+        .user {
+            width: 100%;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            border-bottom: 1px solid white;
+        }
+        .username {
+            margin-top: 10px;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .username,
+        .ant-avatar {
+            cursor: pointer;
+        }
+    }
+    .app-right-layout {
+        min-height: 100vh;
+        margin-left: 200px;
+    }
+    .app-layout-header {
+        background-color: white;
+        padding: 0;
+    }
+    .app-layout-footer {
+        text-align: center;
+        background: white;
+    }
+    .app-layout-content {
+        min-height: calc(100vh - 70px);
+        padding: 24px 16px 0;
+        overflow: initial;
+        background-color: white;
+    }
+}
