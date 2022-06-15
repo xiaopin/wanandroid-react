@@ -13,6 +13,7 @@ import {
 } from '@ant-design/icons'
 import { Layout, Menu, Avatar } from 'antd'
 import React, { useState } from 'react'
+import { Outlet } from 'react-router-dom'
 import './AppLayout.scss'
 
 export interface AppLayoutProps {
@@ -65,7 +66,10 @@ const AppLayout: React.FC<AppLayoutProps> = props => {
             </Layout.Sider>
             <Layout className="app-right-layout">
                 {props.header && <Layout.Header className="app-layout-header">{props.header}</Layout.Header>}
-                <Layout.Content className="app-layout-content">{props.children}</Layout.Content>
+                <Layout.Content className="app-layout-content">
+                    {props.children}
+                    <Outlet />
+                </Layout.Content>
                 <Layout.Footer className="app-layout-footer">{props.footer ?? '©2022 · All Rights Reserved.'}</Layout.Footer>
             </Layout>
         </Layout>
