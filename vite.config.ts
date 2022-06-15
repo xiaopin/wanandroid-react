@@ -14,7 +14,7 @@ export default defineConfig({
         preprocessorOptions: {
             scss: {
                 // 全局引入 scss 文件
-                additionalData: '@use "./src/style/variable.scss" as *;'
+                additionalData: '@use "./src/style/common/variable.scss" as *;'
             }
         }
     }
