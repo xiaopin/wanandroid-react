@@ -11,9 +11,9 @@ import {
     ClusterOutlined,
     TeamOutlined
 } from '@ant-design/icons'
-import { Layout, Menu, Avatar } from 'antd'
+import { Layout, Menu, Avatar, Space, Divider } from 'antd'
 import React, { useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import './AppLayout.scss'
 
 export interface AppLayoutProps {
@@ -57,10 +57,11 @@ const AppLayout: React.FC<AppLayoutProps> = props => {
             >
                 <div className="user">
                     <Avatar size={80} icon={<UserOutlined />} />
-                    <div className="username">
-                        <span>登录</span>
-                        <span>注册</span>
-                    </div>
+                    {/* <div className="username">用户名称</div> */}
+                    <Space size={8} split={<Divider type="vertical" style={{ backgroundColor: 'white' }} />}>
+                        <Link to={'/login'}>登录</Link>
+                        <Link to={'/register'}>注册</Link>
+                    </Space>
                 </div>
                 <Menu theme="dark" mode="inline" defaultSelectedKeys={selectedMenuKeys} items={items} />
             </Layout.Sider>

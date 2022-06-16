@@ -11,10 +11,10 @@ const NotFoundView: React.FC = props => {
         <Result
             status="404"
             title="404"
-            subTitle="Sorry, the page you visited does not exist."
+            subTitle="对不起，你好像走丢了..."
             extra={
                 <Button type="primary" onClick={() => navigator('/')}>
-                    Back Home
+                    走，跟我回家！
                 </Button>
             }
         />

@@ -9,15 +9,17 @@
             justify-content: center;
             color: white;
             border-bottom: 1px solid white;
-        }
-        .username {
-            margin-top: 10px;
-            font-weight: 700;
-            font-size: 18px;
-        }
-        .username,
-        .ant-avatar {
-            cursor: pointer;
+            a,
+            .username {
+                font-weight: 700;
+                font-size: 18px;
+                color: white;
+            }
+            .username,
+            .ant-avatar {
+                cursor: pointer;
+                margin-bottom: 10px;
+            }
         }
     }
     .app-right-layout {
