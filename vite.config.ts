@@ -17,5 +17,14 @@ export default defineConfig({
                 additionalData: '@use "./src/style/common/variable.scss" as *;'
             }
         }
+    },
+    server: {
+        proxy: {
+            '^/api': {
+                target: 'https://www.wanandroid.com',
+                changeOrigin: true,
+                rewrite: path => path.replace(/^\/api/, '')
+            }
+        }
     }
 })
