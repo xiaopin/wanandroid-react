@@ -1,6 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios'
 import AppConfig from '@/utils/config'
-import { ResponseModel } from '@/types/model'
 
 /**
  * 接口返回的状态码说明
@@ -39,7 +38,7 @@ instance.interceptors.response.use(
 )
 
 /// HTTP请求响应数据
-export declare type HttpResponse<T> = Promise<ResponseModel<T>>
+export declare type HttpResponse<T> = Promise<ApiResp.ResponseModel<T>>
 
 /**
  * HTTP工具类
@@ -62,11 +61,11 @@ export default class Http {
             method: method,
             data: data
         }
-        const ret = instance.request<ResponseModel<T>>(config).then(response => {
+        const ret = instance.request<ApiResp.ResponseModel<T>>(config).then(response => {
             if (response === undefined || response === null) {
                 throw new Error('The response data is illegal!')
             }
-            const data: ResponseModel<T> = response.data
+            const data: ApiResp.ResponseModel<T> = response.data
             return data
         })
         return ret
