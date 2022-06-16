@@ -1,0 +1,20 @@
+.tool-view {
+    .ant-card-head {
+        padding: 0 $padding;
+    }
+    .ant-card-head-title {
+        padding: $padding-small 0;
+    }
+    .ant-card-body {
+        padding: $padding;
+        p {
+            margin: 0px;
+        }
+    }
+    .ant-empty {
+        position: absolute;
+        top: 50%;
+        left: calc(50% + 50px);
+        transform: translate(calc(-50% + 92px), -50%);
+    }
+}
