@@ -7,7 +7,7 @@ import AppConfig from '@/utils/config'
 import { Empty, List, message, Spin, Tag } from 'antd'
 import { LinkOutlined, StarOutlined, StarFilled } from '@ant-design/icons'
 import VirtualList from 'rc-virtual-list'
-import React, { useEffect, useState } from 'react'
+import React, { MouseEvent, useEffect, useState } from 'react'
 import { useWindowSize } from 'react-use'
 
 const HomeView: React.FC = props => {
@@ -52,7 +52,7 @@ const HomeView: React.FC = props => {
     }
 
     /** 处理滚动回调事件 */
-    const onHandleScroll = (e: any) => {
+    const onHandleScroll = (e: MouseEvent<HTMLElement>) => {
         if (e.currentTarget.scrollHeight - e.currentTarget.scrollTop === scrollContainerHeight) {
             const n = pageIndex + 1
             setPageIndex(pageIndex => pageIndex + 1)
@@ -80,7 +80,9 @@ const HomeView: React.FC = props => {
                                         <div>
                                             {item.type == 1 && <Tag color="red">置顶</Tag>}
                                             {item.tags.map(tag => (
-                                                <Tag color="green">{tag.name}</Tag>
+                                                <Tag color="green" key={tag.name}>
+                                                    {tag.name}
+                                                </Tag>
                                             ))}
                                             <span className="username">{item.author || item.shareUser}</span>
                                             <span>{item.niceDate}</span>
