@@ -3,12 +3,15 @@
  */
 import '@/style/ToolView.scss'
 import Api from '@/api'
-import { Button, Card, Empty, Space, Spin } from 'antd'
+import { Button, Card, Empty, List, Space, Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
+import { useWindowSize } from 'react-use'
 
 const ToolView: React.FC = props => {
     const [isLoading, setLoading] = useState(true)
     const [models, setModels] = useState<ApiResp.ToolModel[]>([])
+    const { width } = useWindowSize()
+    const column = width > 1000 ? 4 : 2
 
     useEffect(() => {
         setLoading(true)
@@ -38,9 +41,11 @@ const ToolView: React.FC = props => {
     return (
         <div className="tool-view">
             {models.length == 0 && <Empty image={Empty.PRESENTED_IMAGE_DEFAULT} description="没有数据哟" />}
-            <Space wrap size={16}>
-                {models.map(item => {
-                    return (
+            <List
+                grid={{ gutter: 16, column: column }}
+                dataSource={models}
+                renderItem={item => (
+                    <List.Item>
                         <Card
                             key={item.id}
                             title={
@@ -51,9 +56,9 @@ const ToolView: React.FC = props => {
                         >
                             <p>{item.desc}</p>
                         </Card>
-                    )
-                })}
-            </Space>
+                    </List.Item>
+                )}
+            ></List>
         </div>
     )
 }

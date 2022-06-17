@@ -8,7 +8,10 @@
     .ant-card-body {
         padding: $padding;
         p {
+            @include line2;
             margin: 0px;
+            height: 48px;
+            overflow: hidden;
         }
     }
     .ant-empty {

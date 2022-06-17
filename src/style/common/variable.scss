@@ -13,3 +13,50 @@ $padding-large: 24px;
 $radius: 10px;
 $radius-small: 4px;
 $radius-large: 16px;
+
+/***************************/
+/****       @mixin    ******/
+/***************************/
+
+@mixin line-base {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+// 一行文本
+@mixin line1 {
+    @include line-base;
+    -webkit-line-clamp: 1;
+}
+// 两行文本
+@mixin line2 {
+    @include line-base;
+    -webkit-line-clamp: 2;
+}
+@mixin line-n($n) {
+    @include line-base;
+    -webkit-line-clamp: $n;
+}
+
+// 水平居中布局
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+// 垂直居中布局
+@mixin flex-column-center {
+    @include flex-center;
+    flex-direction: column;
+}
+@mixin flex-left-center {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+@mixin flex-right-center {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
