@@ -15,6 +15,11 @@ export default class Api {
         return Http.get<T>(`/article/list/${pageIndex}/json?page_size=${pageSize}`)
     }
 
+    /** 获取首页置顶文章列表 */
+    static homeTopArticles<T = ApiResp.ArticleModel[]>(): HttpResponse<T> {
+        return Http.get<T>('/article/top/json')
+    }
+
     /** 获取工具列表数据 */
     static tools<T = ApiResp.ToolModel[]>(): HttpResponse<T> {
         return Http.get<T>('/tools/list/json')
