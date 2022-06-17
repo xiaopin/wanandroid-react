@@ -64,7 +64,7 @@ declare namespace ApiResp {
         shareUser: string
         superChapterId: number
         superChapterName: string
-        tags: Array<string>
+        tags: Array<{ name: string; url: string }>
         title: string
         type: number
         userId: number

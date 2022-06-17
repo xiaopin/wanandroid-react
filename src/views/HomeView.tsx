@@ -71,10 +71,17 @@ const HomeView: React.FC = props => {
                             <List.Item key={item.id}>
                                 <List.Item.Meta
                                     avatar={<LinkOutlined />}
-                                    title={<a href={item.link}>{item.title}</a>}
+                                    title={
+                                        <a href={item.link} target="_blank">
+                                            {item.title}
+                                        </a>
+                                    }
                                     description={
                                         <div>
                                             {item.type == 1 && <Tag color="red">置顶</Tag>}
+                                            {item.tags.map(tag => (
+                                                <Tag color="green">{tag.name}</Tag>
+                                            ))}
                                             <span className="username">{item.author || item.shareUser}</span>
                                             <span>{item.niceDate}</span>
                                         </div>
