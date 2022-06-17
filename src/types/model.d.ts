@@ -102,4 +102,11 @@ declare namespace ApiResp {
         userControlSetTop: boolean
         visible: 0 | 1
     }
+
+    /** 导航项目 */
+    declare interface NavigationModel {
+        cid: number
+        name: string
+        articles: ArticleModel[]
+    }
 }

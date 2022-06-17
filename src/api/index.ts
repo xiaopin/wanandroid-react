@@ -45,4 +45,9 @@ export default class Api {
     ): HttpResponse<T> {
         return Http.get<T>(`/project/list/${pageIndex}/json?cid=${cid}&page_size=${pageSize}`)
     }
+
+    /** 获取导航数据 */
+    static navigations<T = ApiResp.NavigationModel[]>(): HttpResponse<T> {
+        return Http.get<T>('/navi/json')
+    }
 }
