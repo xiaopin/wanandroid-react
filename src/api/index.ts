@@ -24,4 +24,25 @@ export default class Api {
     static tools<T = ApiResp.ToolModel[]>(): HttpResponse<T> {
         return Http.get<T>('/tools/list/json')
     }
+
+    /** 获取项目分类 */
+    static projectCategories<T = ApiResp.ProjectCategoryModel[]>(): HttpResponse<T> {
+        return Http.get<T>('/project/tree/json')
+    }
+
+    /**
+     * 获取项目列表
+     *
+     * @param cid 项目分类id
+     * @param pageIndex 页码
+     * @param pageSize 分页大小
+     * @returns
+     */
+    static projects<T = ApiResp.ResponseListModel<ApiResp.ArticleModel>>(
+        cid: number,
+        pageIndex: number,
+        pageSize: number = AppConfig.pageSize
+    ): HttpResponse<T> {
+        return Http.get<T>(`/project/list/${pageIndex}/json?cid=${cid}&page_size=${pageSize}`)
+    }
 }

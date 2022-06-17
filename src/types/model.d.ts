@@ -85,4 +85,21 @@ declare namespace ApiResp {
         tabName: string
         visible: 0 | 1
     }
+
+    /** 项目分类 */
+    declare interface ProjectCategoryModel {
+        author: string
+        children: ProjectCategoryModel[]
+        courseId: number
+        cover: string
+        desc: string
+        id: number
+        lisense: string
+        lisenseLink: string
+        name: string
+        order: number
+        parentChapterId: number
+        userControlSetTop: boolean
+        visible: 0 | 1
+    }
 }

@@ -25,6 +25,10 @@ const routeConfigs: RouteItemConfig[] = [
                 component: React.lazy(() => import('@/views/AboutView'))
             },
             {
+                path: '/project',
+                component: React.lazy(() => import('@/views/ProjectView'))
+            },
+            {
                 path: '/tool',
                 component: React.lazy(() => import('@/views/ToolView'))
             }

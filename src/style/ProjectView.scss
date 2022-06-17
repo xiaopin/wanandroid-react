@@ -1,0 +1,26 @@
+.project-view {
+    .ant-card {
+        background-color: white;
+        overflow: hidden;
+    }
+    .ant-card-cover {
+        @include flex-center;
+        box-sizing: border-box;
+        overflow: hidden;
+        .ant-image-placeholder {
+            @include flex-center;
+        }
+    }
+    .ant-card-body {
+        padding: $padding;
+    }
+    .thumb-image {
+        width: 100%;
+        object-fit: cover;
+    }
+    .ant-card-meta-description {
+        @include line-n(4);
+        height: 90px;
+        overflow: hidden;
+    }
+}
