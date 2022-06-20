@@ -9,13 +9,16 @@ import {
     ApartmentOutlined,
     ProjectOutlined,
     ClusterOutlined,
-    TeamOutlined
+    TeamOutlined,
+    LogoutOutlined
 } from '@ant-design/icons'
-import { Layout, Menu, Avatar, Space, Divider, BackTop } from 'antd'
+import { Layout, Menu, Avatar, Space, Divider, BackTop, Modal } from 'antd'
 import React, { useState } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { MenuInfo } from 'rc-menu/lib/interface'
 import './AppLayout.scss'
+import { useAccountState, useAccountValue } from '@/store'
+import { useCookie } from 'react-use'
 
 export interface AppLayoutProps {
     children?: React.ReactNode
@@ -44,12 +47,29 @@ const items: Array<{
 const AppLayout: React.FC<AppLayoutProps> = props => {
     const [selectedMenuKeys, setSelectedMenuKeys] = useState<string[]>(['1'])
     const navigator = useNavigate()
+    /** 退出登录的弹窗是否显示 */
+    const [isLogoutModalVisible, setLogoutModalVisible] = useState(false)
+    /** 登录账号数据 */
+    const [account, setAccount] = useAccountState()
+    /** 清空cookie的方法 */
+    const removeCookies: (() => void)[] = [useCookie('account'), useCookie('loginUserName'), useCookie('token_pass'), useCookie('JSESSIONID')].map(
+        array => array[2]
+    )
 
+    /** 菜单点击的回调 */
     const onHandleMenuClick = (info: MenuInfo) => {
         const { key } = info
         const item = items.find(element => element.key === key)
         if (!item) return
         navigator(item.path, { replace: true })
+    }
+
+    /** 退出登录 */
+    const onHandleLogout = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+        setLogoutModalVisible(false)
+        setAccount(undefined)
+        removeCookies.forEach(remove => remove())
+        navigator('/login')
     }
 
     return (
@@ -67,11 +87,16 @@ const AppLayout: React.FC<AppLayoutProps> = props => {
             >
                 <div className="user">
                     <Avatar size={80} icon={<UserOutlined />} />
-                    {/* <div className="username">用户名称</div> */}
-                    <Space size={8} split={<Divider type="vertical" style={{ backgroundColor: 'white' }} />}>
-                        <Link to={'/login'}>登录</Link>
-                        <Link to={'/register'}>注册</Link>
-                    </Space>
+                    {account !== undefined && <div className="username">{account?.nickname || account?.publicName || account?.username}</div>}
+                    {account === undefined && (
+                        <Space size={8} split={<Divider type="vertical" style={{ backgroundColor: 'white' }} />}>
+                            <Link to={'/login'}>登录</Link>
+                            <Link to={'/register'}>注册</Link>
+                        </Space>
+                    )}
+                    <div className="logout-button" onClick={() => setLogoutModalVisible(true)}>
+                        {account !== undefined && <LogoutOutlined />}
+                    </div>
                 </div>
                 <Menu theme="dark" mode="inline" defaultSelectedKeys={selectedMenuKeys} items={items} onClick={onHandleMenuClick} />
             </Layout.Sider>
@@ -81,6 +106,20 @@ const AppLayout: React.FC<AppLayoutProps> = props => {
                     {props.children}
                     <Outlet />
                     <BackTop visibilityHeight={150} style={{ right: '50px', bottom: '40px' }}></BackTop>
+                    <Modal
+                        title="温馨提示"
+                        visible={isLogoutModalVisible}
+                        onOk={onHandleLogout}
+                        onCancel={() => setLogoutModalVisible(false)}
+                        okText="确定"
+                        cancelText="取消"
+                        centered={true}
+                        closable={false}
+                        keyboard={false}
+                        maskClosable={false}
+                    >
+                        <p>确定要退出当前账号吗？</p>
+                    </Modal>
                 </Layout.Content>
                 <Layout.Footer className="app-layout-footer">{props.footer ?? '©2022 · All Rights Reserved.'}</Layout.Footer>
             </Layout>

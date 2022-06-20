@@ -9,6 +9,7 @@
             justify-content: center;
             color: white;
             border-bottom: 1px solid white;
+            position: relative;
             a,
             .username {
                 font-weight: 700;
@@ -19,6 +20,12 @@
             .ant-avatar {
                 cursor: pointer;
                 margin-bottom: 10px;
+            }
+            .logout-button {
+                position: absolute;
+                top: $padding;
+                right: $padding;
+                cursor: pointer;
             }
         }
     }

@@ -2,6 +2,33 @@ import AppConfig from '@/utils/config'
 import Http, { HttpResponse } from './http'
 
 export default class Api {
+    /**
+     * 用户登录
+     * @param username 登录用户
+     * @param password 登录密码
+     */
+    static login<T = ApiResp.AccountModel>(username: string, password: string): HttpResponse<T> {
+        const parameters = { username, password }
+        return Http.post<T>('/user/login', parameters)
+    }
+
+    /** 获取登录账号的个人信息 */
+    static userInfo<T = ApiResp.UserInfoModel>(): HttpResponse<T> {
+        return Http.get('/user/lg/userinfo/json')
+    }
+
+    /**
+     * 获取收藏文章列表
+     * @param pageIndex 页码
+     * @param pageSize 分页大小
+     */
+    static collections<T = ApiResp.ResponseListModel<ApiResp.ArticleModel>>(
+        pageIndex: number,
+        pageSize: number = AppConfig.pageSize
+    ): HttpResponse<T> {
+        return Http.get<T>(`/lg/collect/list/${pageIndex}/json?page_size=${pageSize}`)
+    }
+
     /** 获取首页轮播图数据 */
     static banner<T = ApiResp.HomeBannerModel[]>(): HttpResponse<T> {
         return Http.get<T>('/banner/json')

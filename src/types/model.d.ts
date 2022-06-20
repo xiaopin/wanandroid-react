@@ -10,6 +10,48 @@ declare namespace ApiResp {
         errorCode: number
         // 接口调用失败时的错误信息
         errorMsg: string
+        // HTTP状态码
+        status: number
+        // 响应头
+        headers: Record<string, string> & {
+            'set-cookie'?: string[]
+        }
+    }
+
+    /** 账号数据 */
+    declare interface AccountModel {
+        admin: boolean
+        chapterTops: any[]
+        coinCount: number
+        collectIds: number[]
+        email: string
+        icon: string
+        id: number
+        nickname: string
+        publicName: string
+        username: string
+        password: string
+        token: string
+        type: number
+    }
+
+    /** 金币/积分 */
+    declare interface CoinInfoModel {
+        coinCount: number
+        level: number
+        nickname: string
+        rank: string
+        userId: number
+        username: string
+    }
+
+    /** 登录账号的个人信息 */
+    declare interface UserInfoModel {
+        coinInfo: CoinInfoModel
+        userInfo: AccountModel
+        collectArticleInfo: {
+            count: number
+        }
     }
 
     /** 列表数据模型 */

@@ -1,21 +1,44 @@
 /**
  * 登录页面
  */
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '@/style/LoginView.scss'
 import { Button, Form, Input, message, Space, Divider } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { ValidateErrorEntity } from 'rc-field-form/lib/interface'
+import Api from '@/api'
+import { useCookie } from 'react-use'
+import { useUpdateAccount } from '@/store'
+
+type LoginFormData = {
+    username: string
+    password: string
+}
 
 const LoginView: React.FC = props => {
-    const [form] = Form.useForm()
+    const [form] = Form.useForm<LoginFormData>()
+    const [isLoading, setLoading] = useState(false)
+    const navigator = useNavigate()
+    const [accountCookie, updateAccountCookie, removeAccountCookie] = useCookie('account')
+    const setAccount = useUpdateAccount()
 
-    const onFinish = (value: any) => {
-        message.success('Submit success!')
+    /** 表单校验成功的回调 */
+    const onFinish = (value: LoginFormData) => {
+        setLoading(true)
+        Api.login(value.username, value.password)
+            .then(res => {
+                updateAccountCookie(JSON.stringify(res.data))
+                setAccount(res.data)
+                navigator('/', { replace: true })
+            })
+            .catch((e: Error) => message.error(e.message))
+            .finally(() => setLoading(false))
     }
 
-    const onFinishFailed = () => {
-        message.error('Submit failed!')
+    /** 表单校验失败的回调 */
+    const onFinishFailed = (entity: ValidateErrorEntity<LoginFormData>) => {
+        message.error('请填写正确的用户名和密码')
     }
 
     return (
@@ -35,7 +58,7 @@ const LoginView: React.FC = props => {
                         }
                     ]}
                 >
-                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="请输入用户名" />
+                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="请输入用户名" readOnly={isLoading} />
                 </Form.Item>
                 <Form.Item
                     name="password"
@@ -48,11 +71,11 @@ const LoginView: React.FC = props => {
                         }
                     ]}
                 >
-                    <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="请输入密码" />
+                    <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="请输入密码" readOnly={isLoading} />
                 </Form.Item>
                 <Form.Item>
                     <Space direction="vertical" align="end">
-                        <Button className="login-button" type="primary">
+                        <Button className="login-button" type="primary" htmlType="submit" loading={isLoading}>
                             登录
                         </Button>
                         <Space split={<Divider type="vertical" />}>
