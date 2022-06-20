@@ -1,0 +1,8 @@
+.series-view {
+    .ant-tag {
+        cursor: pointer;
+        &:hover {
+            border-color: #1890ff;
+        }
+    }
+}

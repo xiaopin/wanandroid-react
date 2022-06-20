@@ -109,4 +109,21 @@ declare namespace ApiResp {
         name: string
         articles: ArticleModel[]
     }
+
+    /** 体系分类 */
+    declare interface SeriesCategoryModel {
+        author: string
+        children: SeriesCategoryModel[]
+        courseId: number
+        cover: string
+        desc: string
+        id: number
+        lisense: string
+        lisenseLink: string
+        name: string
+        order: number
+        parentChapterId: number
+        userControlSetTop: boolean
+        visible: 0 | 1
+    }
 }

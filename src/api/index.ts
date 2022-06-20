@@ -50,4 +50,31 @@ export default class Api {
     static navigations<T = ApiResp.NavigationModel[]>(): HttpResponse<T> {
         return Http.get<T>('/navi/json')
     }
+
+    /** 获取体系分类数据 */
+    static seriesCategories<T = ApiResp.SeriesCategoryModel[]>(): HttpResponse<T> {
+        return Http.get<T>('/tree/json')
+    }
+
+    /**
+     * 获取体系下指定分类的文章列表
+     *
+     * @param cid 分类id
+     * @param pageIndex 页码
+     * @param pageSize 分页大小
+     * @param author 根据作者搜索文章(不支持模糊搜索)
+     * @returns
+     */
+    static seriesArticles<T = ApiResp.ResponseListModel<ApiResp.ArticleModel>>(
+        cid: number,
+        pageIndex: number,
+        pageSize: number = AppConfig.pageSize,
+        author: string | undefined = undefined
+    ): HttpResponse<T> {
+        let url = `/article/list/${pageIndex}/json?cid=${cid}&page_size=${pageSize}`
+        if (author !== undefined) {
+            url += `&author=${author}`
+        }
+        return Http.get<T>(url)
+    }
 }
